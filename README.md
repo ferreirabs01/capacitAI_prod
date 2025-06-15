@@ -1,6 +1,6 @@
 # capacitAI_prod
 
-CapacitAI sua finalide é através da leitura do pdf do curriculo, selecionar as palavras chaves que estão diretamente relacionadas a seu perfil, diferente de outras plataformas a idéia central está no levantamento de diversas vagas de "n" plataformas, correlacionar a formação do Trabalhados e as capacidades ausentes para a vaga ele ter a opção de listar Instituições de Ensino (de preferencia Gratuitas) que possibilite ao mesmo se qualificar.
+CapacitAI sua finalidade é através da leitura do pdf do curriculo, selecionar as palavras chaves que estão diretamente relacionadas a seu perfil, diferente de outras plataformas a idéia central está no levantamento de diversas vagas de "n" plataformas, correlacionar a formação do Trabalhados e as capacidades ausentes para a vaga ele ter a opção de listar Instituições de Ensino (de preferencia Gratuitas) que possibilite ao mesmo se qualificar.
 
 Nosso foco principal são pessoas com baixa escolaridade e formação, facilitar essa busca por capacitação.
 
