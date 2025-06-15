@@ -16,10 +16,12 @@
 
 
 -- Copiando estrutura do banco de dados para gen
+DROP DATABASE IF EXISTS `gen`;
 CREATE DATABASE IF NOT EXISTS `gen` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `gen`;
 
 -- Copiando estrutura para tabela gen.competencias_cursos
+DROP TABLE IF EXISTS `competencias_cursos`;
 CREATE TABLE IF NOT EXISTS `competencias_cursos` (
   `id_competencia` int(11) NOT NULL AUTO_INCREMENT,
   `id_curso` int(11) NOT NULL,
@@ -29,12 +31,17 @@ CREATE TABLE IF NOT EXISTS `competencias_cursos` (
   PRIMARY KEY (`id_competencia`),
   KEY `id_curso` (`id_curso`),
   CONSTRAINT `competencias_cursos_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela gen.competencias_cursos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela gen.competencias_cursos: ~3 rows (aproximadamente)
 DELETE FROM `competencias_cursos`;
+INSERT INTO `competencias_cursos` (`id_competencia`, `id_curso`, `descricao`, `log_create`, `log_update`) VALUES
+	(2, 1, '["css"]', '2025-06-15 15:13:50', '2025-06-15 15:13:50'),
+	(3, 2, '["excel"]', '2025-06-15 15:43:56', '2025-06-15 15:43:56'),
+	(4, 3, '["excel"]', '2025-06-15 15:51:55', '2025-06-15 15:51:55');
 
 -- Copiando estrutura para tabela gen.contatos
+DROP TABLE IF EXISTS `contatos`;
 CREATE TABLE IF NOT EXISTS `contatos` (
   `id_entidade` int(11) NOT NULL,
   `tipo` char(1) NOT NULL,
@@ -49,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `contatos` (
 DELETE FROM `contatos`;
 
 -- Copiando estrutura para tabela gen.cursos
+DROP TABLE IF EXISTS `cursos`;
 CREATE TABLE IF NOT EXISTS `cursos` (
   `id_curso` int(11) NOT NULL AUTO_INCREMENT,
   `id_entidade` int(11) NOT NULL,
@@ -57,17 +65,21 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `valor` float NOT NULL,
   `log_create` datetime DEFAULT current_timestamp(),
   `log_update` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `saiba_mais` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`id_curso`),
   KEY `id_entidade` (`id_entidade`),
   CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`id_entidade`) REFERENCES `entidades` (`id_entidade`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela gen.cursos: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela gen.cursos: ~3 rows (aproximadamente)
 DELETE FROM `cursos`;
-INSERT INTO `cursos` (`id_curso`, `id_entidade`, `descricao`, `prazo`, `valor`, `log_create`, `log_update`) VALUES
-	(1, 2, 'Power BI Microsoft ', 32, 0, '2025-06-14 15:22:42', '2025-06-14 15:22:42');
+INSERT INTO `cursos` (`id_curso`, `id_entidade`, `descricao`, `prazo`, `valor`, `log_create`, `log_update`, `saiba_mais`) VALUES
+	(1, 2, 'Power BI Microsoft ', 32, 0, '2025-06-14 15:22:42', '2025-06-14 15:22:42', NULL),
+	(2, 2, 'Excel', 20, 0, '2025-06-15 15:40:27', '2025-06-15 15:44:18', 'https://www.sp.senai.br/inscricaogratuita/excel-basico/92632/150/122753'),
+	(3, 18, 'Excel', 30, 100, '2025-06-15 15:51:27', '2025-06-15 15:51:27', NULL);
 
 -- Copiando estrutura para tabela gen.entidades
+DROP TABLE IF EXISTS `entidades`;
 CREATE TABLE IF NOT EXISTS `entidades` (
   `id_entidade` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(250) NOT NULL,
@@ -81,9 +93,9 @@ CREATE TABLE IF NOT EXISTS `entidades` (
   `log_create` datetime NOT NULL DEFAULT current_timestamp(),
   `log_update` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_entidade`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela gen.entidades: ~9 rows (aproximadamente)
+-- Copiando dados para a tabela gen.entidades: ~10 rows (aproximadamente)
 DELETE FROM `entidades`;
 INSERT INTO `entidades` (`id_entidade`, `nome`, `tipo`, `razao_social`, `nrCadastro`, `email`, `telefone`, `data_cadastro`, `status`, `log_create`, `log_update`) VALUES
 	(1, 'BRUNO DE SOUZA FERREIRA', 'PF', NULL, '33355566688', 'ferreirabs@msn.com', '18999996666', '2025-06-14', 'A', '2025-06-14 15:15:58', '2025-06-14 15:15:58'),
@@ -94,9 +106,11 @@ INSERT INTO `entidades` (`id_entidade`, `nome`, `tipo`, `razao_social`, `nrCadas
 	(13, 'bruno de souza ferreira', 'PF', '', '3366699985', 'ferreirabs@msn.com', '18996159173', '2025-06-15', 'A', '2025-06-15 11:03:50', '2025-06-15 11:03:50'),
 	(14, 'bia', 'PF', '', '121515151', 'teste@teset', '18181', '2025-06-15', 'A', '2025-06-15 11:55:06', '2025-06-15 11:55:06'),
 	(16, 'rafael b', 'PF', '', '66655599988', 'teste@teset', '1815151', '2025-06-15', 'A', '2025-06-15 12:52:58', '2025-06-15 12:52:58'),
-	(17, 'kelly', 'PF', '', '3333666655554', 'tetste@gmail.com', '1899181', '2025-06-15', 'A', '2025-06-15 13:33:18', '2025-06-15 13:33:18');
+	(17, 'kelly', 'PF', '', '3333666655554', 'tetste@gmail.com', '1899181', '2025-06-15', 'A', '2025-06-15 13:33:18', '2025-06-15 13:33:18'),
+	(18, 'INSTITUICAO XYZ', 'PJ', 'XYZ CURSOS PROFISSIONALIZANTES', '515151515151', 'xyz@unidadepp.com.br', '1832226699', '0000-00-00', 'A', '2025-06-15 15:50:43', '2025-06-15 15:50:52');
 
 -- Copiando estrutura para tabela gen.entidade_tipo
+DROP TABLE IF EXISTS `entidade_tipo`;
 CREATE TABLE IF NOT EXISTS `entidade_tipo` (
   `id_entidade` int(11) NOT NULL,
   `id_tipo` int(11) NOT NULL,
@@ -122,6 +136,7 @@ INSERT INTO `entidade_tipo` (`id_entidade`, `id_tipo`, `log_create`, `log_update
 	(17, 3, '2025-06-15 13:33:26', '2025-06-15 13:33:26');
 
 -- Copiando estrutura para tabela gen.perfil_candidato
+DROP TABLE IF EXISTS `perfil_candidato`;
 CREATE TABLE IF NOT EXISTS `perfil_candidato` (
   `id_entidade` int(11) NOT NULL,
   `curriculo` blob DEFAULT NULL,
@@ -134,18 +149,19 @@ CREATE TABLE IF NOT EXISTS `perfil_candidato` (
   CONSTRAINT `perfil_candidato_ibfk_1` FOREIGN KEY (`id_entidade`) REFERENCES `entidades` (`id_entidade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela gen.perfil_candidato: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela gen.perfil_candidato: ~6 rows (aproximadamente)
 DELETE FROM `perfil_candidato`;
 INSERT INTO `perfil_candidato` (`id_entidade`, `curriculo`, `log_create`, `log_update`, `foto`, `chaves`, `teste_vocacional`) VALUES
 	(1, _binary 0x506f7765722042492c20636f6e7461626569732c206461646f732c206573746174697374696361, '2025-06-14 15:17:32', '2025-06-14 16:32:24', NULL, NULL, NULL),
 	(11, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31312f637572726963756c6f2e706466, '2025-06-15 10:21:55', '2025-06-15 12:16:55', NULL, '[]', NULL),
 	(12, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31322f637572726963756c6f2e706466, '2025-06-15 10:37:29', '2025-06-15 10:38:24', 'img/entidade/fotos/12/foto.jpg', NULL, NULL),
-	(13, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31332f637572726963756c6f2e706466, '2025-06-15 11:07:40', '2025-06-15 13:56:17', NULL, '["2004","2006","2013","2017","2023","ferreirabs","linkedin","other","google","linux","data","with","cloud","instrutor","formação","profissional","presidente","prudente","paulo","brasil"]', 'S'),
+	(13, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31332f637572726963756c6f2e706466, '2025-06-15 11:07:40', '2025-06-15 14:55:35', NULL, '["2004","2006","2013","2017","2023","ferreirabs","linkedin","other","google","linux","data","with","cloud","instrutor","formação","profissional","presidente","prudente","paulo","brasil","mysql","PostgreSQL", "backup", "sql","segurança"]', 'S'),
 	(14, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31342f637572726963756c6f2e706466, '2025-06-15 11:55:50', '2025-06-15 11:55:50', 'img/entidade/fotos/14/foto.jpg', '["2004","2006","2013","2017","2023","ferreirabs","linkedin","other","google","linux","data","with","cloud","instrutor","formação","profissional","presidente","prudente","paulo","brasil"]', NULL),
 	(16, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31362f637572726963756c6f2e706466, '2025-06-15 12:53:34', '2025-06-15 12:54:56', NULL, '["2004","2006","2013","2017","2023","ferreirabs","linkedin","other","google","linux","data","with","cloud","instrutor","formação","profissional","presidente","prudente","paulo","brasil"]', 'N'),
 	(17, _binary 0x696d672f656e7469646164652f637572726963756c6f732f31372f637572726963756c6f2e706466, '2025-06-15 13:39:09', '2025-06-15 13:43:41', NULL, '["2004","2006","2013","2017","2023","ferreirabs","linkedin","other","google","linux","data","with","cloud","instrutor","formação","profissional","presidente","prudente","paulo","brasil"]', 'S');
 
 -- Copiando estrutura para tabela gen.tipo_entidade
+DROP TABLE IF EXISTS `tipo_entidade`;
 CREATE TABLE IF NOT EXISTS `tipo_entidade` (
   `id_tipo` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
@@ -154,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `tipo_entidade` (
   PRIMARY KEY (`id_tipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela gen.tipo_entidade: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela gen.tipo_entidade: ~2 rows (aproximadamente)
 DELETE FROM `tipo_entidade`;
 INSERT INTO `tipo_entidade` (`id_tipo`, `descricao`, `log_create`, `log_update`) VALUES
 	(1, 'Empregador', '2025-06-14 15:11:30', '2025-06-14 15:11:30'),
@@ -162,6 +178,7 @@ INSERT INTO `tipo_entidade` (`id_tipo`, `descricao`, `log_create`, `log_update`)
 	(3, 'Trabalhador', '2025-06-14 15:12:00', '2025-06-14 15:12:00');
 
 -- Copiando estrutura para tabela gen.usuarios
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_entidade` int(11) NOT NULL,
   `login` varchar(50) DEFAULT NULL,
@@ -180,6 +197,7 @@ INSERT INTO `usuarios` (`id_entidade`, `login`, `senha`, `log_create`, `log_upda
 	(17, 'kelly', '1', '2025-06-15 13:33:26', '2025-06-15 13:33:26');
 
 -- Copiando estrutura para tabela gen.vagas_perfil
+DROP TABLE IF EXISTS `vagas_perfil`;
 CREATE TABLE IF NOT EXISTS `vagas_perfil` (
   `id_vaga` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(255) DEFAULT NULL,
@@ -193,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `vagas_perfil` (
 DELETE FROM `vagas_perfil`;
 INSERT INTO `vagas_perfil` (`id_vaga`, `descricao`, `competencias`, `log_create`, `log_update`) VALUES
 	(3, 'Desenvolvedor Front-End', '["HTML", "CSS", "JavaScript", "React"]', '2025-06-15 14:21:35', '2025-06-15 14:21:35'),
-	(4, 'Analista de Dados', '["SQL", "Power BI", "Python", "ETL"]', '2025-06-15 14:21:35', '2025-06-15 14:21:35'),
+	(4, 'Analista de Dados', '["SQL", "Power BI", "Python", "ETL", "Excel"]', '2025-06-15 14:21:35', '2025-06-15 15:43:05'),
 	(5, 'Engenheiro de Software', '["Java", "Spring Boot", "Microservices", "Docker"]', '2025-06-15 14:21:35', '2025-06-15 14:21:35'),
 	(6, 'Técnico em Redes', '["TCP/IP", "Roteamento", "Switches", "Firewall"]', '2025-06-15 14:21:35', '2025-06-15 14:21:35'),
 	(7, 'Designer UI/UX', '["Figma", "Adobe XD", "Prototipagem", "Wireframes"]', '2025-06-15 14:21:35', '2025-06-15 14:21:35'),
